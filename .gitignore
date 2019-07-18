@@ -60,3 +60,5 @@ target/
 \.env
 
 \.idea/
+
+media/
