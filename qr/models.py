@@ -9,6 +9,7 @@ class QrCode(BasePolymorphicModel):
     img = models.ImageField(upload_to=get_qrcode_img_path, null=True, blank=True)
 
     def build_img(self):
+        setattr(self, '_disable_signals', True)
         self.img.save(self.data_name, ContentFile(create_qrcode_io_stream(self.data)))
 
     @property
