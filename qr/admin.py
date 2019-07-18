@@ -1,7 +1,7 @@
 from django.contrib import admin
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin, PolymorphicChildModelFilter
 
-from qrcode.models import QrCode, UrlQrCode, FileQrCode
+from qr.models import QrCode, UrlQrCode, FileQrCode
 
 
 @admin.register(UrlQrCode)

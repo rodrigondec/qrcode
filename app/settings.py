@@ -47,7 +47,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'core',
-    'qrcode',
+    'qr',
 ]
 
 INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DEFAULT_APPS
