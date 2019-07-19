@@ -14,15 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import urls as auth_urls
 
+from core.urls import urlpatterns as core_urls
 from qr.urls import urlpatterns as qr_urls
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include(auth_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+urlpatterns += core_urls
 urlpatterns += qr_urls
