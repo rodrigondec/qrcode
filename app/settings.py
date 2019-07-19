@@ -30,6 +30,7 @@ SECRET_KEY = '$gs%l(0h%t1s_k^y%^+hfju&8i_gkdpeiw*%r2h4s4-3n3g0-g'
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
+HOST_ADDRESS = config('HOST_ADDRESS', default='http://10.0.0.107:8000')
 
 # Application definition
 DEFAULT_APPS = [
