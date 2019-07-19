@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.core.files.base import ContentFile
 
 from core.models import BasePolymorphicModel
@@ -9,9 +10,8 @@ class QrCode(BasePolymorphicModel):
     image = models.ImageField(upload_to=get_qrcode_img_path, null=True, blank=True)
     name = models.CharField(max_length=150)
 
-    def build_img(self):
-        setattr(self, '_disable_signals', True)
-        self.img.save(self.data_name, ContentFile(create_qrcode_io_stream(self.data)))
+    def build_image(self):
+        self.image.save(self.data_name, ContentFile(create_qrcode_io_stream(self.data)))
 
     @property
     def data(self):
