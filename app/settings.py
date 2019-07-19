@@ -43,6 +43,7 @@ DEFAULT_APPS = [
 
 THIRD_PARTY_APPS = [
     'polymorphic',
+    'django_cleanup',
 ]
 
 LOCAL_APPS = [
