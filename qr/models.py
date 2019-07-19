@@ -6,7 +6,8 @@ from qr.utils import create_qrcode_io_stream, get_qrcode_img_path, get_file_path
 
 
 class QrCode(BasePolymorphicModel):
-    img = models.ImageField(upload_to=get_qrcode_img_path, null=True, blank=True)
+    image = models.ImageField(upload_to=get_qrcode_img_path, null=True, blank=True)
+    name = models.CharField(max_length=150)
 
     def build_img(self):
         setattr(self, '_disable_signals', True)
