@@ -15,7 +15,7 @@ class QrCode(BasePolymorphicModel):
 
     @property
     def data(self):
-        return f'{settings.HOST_ADDRESS}/resolve/{self.id}'
+        return f'{settings.HOST_ADDRESS}/qr/resolve/{self.id}'
 
     @property
     def data_name(self):

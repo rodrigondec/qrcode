@@ -11,7 +11,7 @@ def _insert_logo_on_img(img):
     width, height = img.size
 
     logo_size = 120
-    logo_path = os.path.join(settings.STATIC_ROOT, 'imgs/logo.jpg')
+    logo_path = os.path.join(settings.STATIC_FOLDER, 'imgs/logo.jpg')
     logo = Image.open(logo_path)
 
     # Calculate xmin, ymin, xmax, ymax to put the logo
