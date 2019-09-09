@@ -5,22 +5,24 @@ from django.conf import settings
 from PIL import Image
 import qrcode
 
+from logos.models import Logo
 
-def _insert_logo_on_img(img):
+
+def _insert_logo_on_img(img, logo):
     img = img.convert('RGB')
     width, height = img.size
 
     logo_size = 120
-    logo_path = os.path.join(settings.STATIC_FOLDER, 'imgs/logo.jpg')
-    logo = Image.open(logo_path)
+    assert isinstance(logo, Logo)
+    logo_img = Image.open(logo.image)
 
     # Calculate xmin, ymin, xmax, ymax to put the logo
     xmin = ymin = int((width / 2) - (logo_size / 2))
     xmax = ymax = int((width / 2) + (logo_size / 2))
 
-    logo = logo.resize((xmax - xmin, ymax - ymin))
+    logo_img = logo_img.resize((xmax - xmin, ymax - ymin))
 
-    img.paste(logo, (xmin, ymin, xmax, ymax))
+    img.paste(logo_img, (xmin, ymin, xmax, ymax))
 
     return img
 
@@ -40,9 +42,10 @@ def _create_qrcode_img(url):
     return img
 
 
-def create_qrcode_io_stream(url):
+def create_qrcode_io_stream(url, logo):
     img = _create_qrcode_img(url)
-    img = _insert_logo_on_img(img)
+    if logo:
+        img = _insert_logo_on_img(img, logo)
     stream = BytesIO()
     img.save(stream, format='png')
     return stream.getvalue()
