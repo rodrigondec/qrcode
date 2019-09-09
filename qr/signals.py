@@ -8,5 +8,5 @@ from qr.models import QrCode, FileQrCode, UrlQrCode
 @receiver(post_save, sender=FileQrCode)
 def build_img_handler(sender, instance, created, raw, **kwargs):
     assert isinstance(instance, QrCode)
-    if created:
+    if not hasattr(instance, '_build_save'):
         instance.build_image()
