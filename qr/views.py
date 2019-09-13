@@ -1,11 +1,11 @@
 from django.http import Http404, HttpResponseRedirect
+from django.contrib import messages
 from django.views import View
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
 from django.shortcuts import redirect, render
 from django.core.exceptions import ValidationError
 
-from qr.models import QrCode, FileQrCode, UrlQrCode
+from qr.models import QrCode
 from qr.forms import UrlQrCodeForm, FileQrCodeForm
 
 
@@ -52,7 +52,8 @@ class QrCodeCreateView(View):
                 qr = form.save(commit=False)
                 assert isinstance(qr, QrCode)
                 qr.build_image(logo=form.cleaned_data.get('logo'))
-                return render(request, self.template_name, context)
+                messages.success(request, 'QR Code cadastrado com sucesso!')
+                return HttpResponseRedirect('/qr/lista/')
             context['form_errors'] = form.errors
             return render(request, self.template_name, context)
         raise Exception('Não teve um tipo de formulário retornado!')
