@@ -43,7 +43,7 @@ class UrlQrCode(QrCode):
 
     @property
     def type(self):
-        return 'Url QrCode'
+        return 'URL'
 
     @property
     def value(self):
@@ -59,7 +59,7 @@ class FileQrCode(QrCode):
 
     @property
     def type(self):
-        return 'File QrCode'
+        return 'Arquivo'
 
     @property
     def value(self):
