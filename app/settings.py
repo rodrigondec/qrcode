@@ -46,6 +46,7 @@ DEFAULT_APPS = [
 THIRD_PARTY_APPS = [
     'polymorphic',
     'django_cleanup',
+    'crispy_forms',
 ]
 
 LOCAL_APPS = [
@@ -87,6 +88,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
