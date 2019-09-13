@@ -23,6 +23,14 @@ class QrCode(BasePolymorphicModel):
     def data_name(self):
         return f'{self.id}'
 
+    @property
+    def type(self):
+        raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
+
+    @property
+    def value(self):
+        raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
+
     def resolve(self):
         raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
 
@@ -33,6 +41,14 @@ class UrlQrCode(QrCode):
     def resolve(self):
         return self.url
 
+    @property
+    def type(self):
+        return 'Url QrCode'
+
+    @property
+    def value(self):
+        return self.url
+
 
 class FileQrCode(QrCode):
     file = models.FileField(upload_to=get_file_path)
@@ -40,6 +56,14 @@ class FileQrCode(QrCode):
     @property
     def data_name(self):
         return self.file.name
+
+    @property
+    def type(self):
+        return 'File QrCode'
+
+    @property
+    def value(self):
+        return self.file.url
 
     def resolve(self):
         return self.file.url
