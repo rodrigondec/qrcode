@@ -42,19 +42,6 @@ class QrCodeCreateView(View):
 
         return render(request, self.template_name, {'form': form})
 
-
-class ChildQrCodeCreateView(View):
-    form_class = {'url': UrlQrCodeForm, 'file': FileQrCodeForm}
-    template_name = 'qr/create.html'
-
-    def get(self, request, qr_class, *args, **kwargs):
-        form = self.form_class.get(qr_class)()
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request, qr_class, *args, **kwargs):
-        form = self.form_class.get(qr_class)(request.POST)
-        if form.is_valid():
-            # <process form cleaned data>
-            return HttpResponseRedirect('/success/')
-
-        return render(request, self.template_name, {'form': form})
+                form.save()
+                return render(request, self.template_name, context)
+            context['form_errors'] = form.errors
