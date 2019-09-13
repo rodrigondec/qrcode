@@ -21,6 +21,7 @@ from django.contrib.auth import urls as auth_urls
 
 from core.urls import urlpatterns as core_urls
 from qr.urls import urlpatterns as qr_urls
+from logos.urls import urlpatterns as logos_urls
 
 
 urlpatterns = [
@@ -30,3 +31,4 @@ urlpatterns = [
 
 urlpatterns += core_urls
 urlpatterns += qr_urls
+urlpatterns += logos_urls
