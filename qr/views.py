@@ -49,7 +49,9 @@ class QrCodeCreateView(View):
                 form = FileQrCodeForm(request.POST, request.FILES)
                 context['file_form'] = form
             if form.is_valid():
-                form.save()
+                qr = form.save(commit=False)
+                assert isinstance(qr, QrCode)
+                qr.build_image(logo=form.cleaned_data.get('logo'))
                 return render(request, self.template_name, context)
             context['form_errors'] = form.errors
             return render(request, self.template_name, context)
