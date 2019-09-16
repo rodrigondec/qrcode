@@ -24,6 +24,7 @@ Listagem
                 <th>Tipo</th>
                 <th>Nome</th>
                 <th>Conteúdo</th>
+                <th>Logo</th>
                 <th>Imagem</th>
                 <th class="col-md-1">Detalhar</th>
             </tr>
@@ -32,8 +33,9 @@ Listagem
                     <td>{{ qr.type }}</td>
                     <td>{{ qr.name }}</td>
                     <td><a target="_blank" href="{{ qr.value }}">{{ qr.value }}</a></td>
+                    <td><a href="/logos/atualizar/{{ qr.logo.id }}">{{ qr.logo.name }}</a></td>
                     <td><a target="_blank" href="{{ qr.image.url }}">{{ qr.image.url }}</a></td>
-                    <td><a class="btn btn-info" href="/qr/detalhar/{{ qr.id }}">Ver</a></td>
+                    <td><a class="btn btn-info" href="/qr/atualizar/{{ qr.id }}">Ver</a></td>
                 </tr>
             {% endfor %}
         </table>
