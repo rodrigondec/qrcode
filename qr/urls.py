@@ -1,9 +1,10 @@
 from django.urls import path
 
-from qr.views import ResolveQrCodeView, QrCodeListView, QrCodeCreateView
+from qr.views import ResolveQrCodeView, QRCodeListView, QRCodeCreateView, QRCodeUpdateView
 
 urlpatterns = [
     path('qr/resolve/<pk>/', ResolveQrCodeView.as_view()),
-    path('qr/lista/', QrCodeListView.as_view()),
-    path('qr/cadastro/', QrCodeCreateView.as_view()),
+    path('qr/listar/', QRCodeListView.as_view()),
+    path('qr/cadastrar/', QRCodeCreateView.as_view()),
+    path('qr/atualizar/<pk>/', QRCodeUpdateView.as_view())
 ]
