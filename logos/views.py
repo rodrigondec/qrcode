@@ -19,3 +19,13 @@ class LogoCreateView(CreateView):
     extra_context = {
         'titulo': 'Cadastrar Logo'
     }
+
+
+class LogoUpdateView(UpdateView):
+    model = Logo
+    template_name = 'generic/create_update.html'
+    fields = ['name', 'image']
+    success_url = '/logos/listar/'
+    extra_context = {
+        'titulo': 'Atualizar Logo'
+    }
