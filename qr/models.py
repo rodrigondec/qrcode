@@ -36,7 +36,7 @@ class QrCode(BasePolymorphicModel):
         raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
 
 
-class UrlQrCode(QrCode):
+class URLQrCode(QrCode):
     url = models.URLField()
 
     def resolve(self):

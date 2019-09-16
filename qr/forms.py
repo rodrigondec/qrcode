@@ -1,14 +1,14 @@
 from django.forms import ModelForm
 
-from qr.models import UrlQrCode, FileQrCode
+from qr.models import URLQrCode, FileQrCode
 from logos.forms import LogoChoiceField
 
 
-class UrlQrCodeForm(ModelForm):
+class URLQrCodeForm(ModelForm):
     logo = LogoChoiceField(required=False)
 
     class Meta:
-        model = UrlQrCode
+        model = URLQrCode
         fields = ['name', 'url', 'logo']
 
 
