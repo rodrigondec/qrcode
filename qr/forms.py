@@ -9,7 +9,7 @@ class UrlQrCodeForm(ModelForm):
 
     class Meta:
         model = UrlQrCode
-        fields = ['name', 'url']
+        fields = ['name', 'url', 'logo']
 
 
 class FileQrCodeForm(ModelForm):
@@ -17,4 +17,4 @@ class FileQrCodeForm(ModelForm):
 
     class Meta:
         model = FileQrCode
-        fields = ['name', 'file']
+        fields = ['name', 'file', 'logo']
