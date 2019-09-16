@@ -9,9 +9,10 @@ from qr.utils import create_qrcode_io_stream, get_qrcode_img_path,  get_file_pat
 class QrCode(BasePolymorphicModel):
     image = models.ImageField(upload_to=get_qrcode_img_path, null=True, blank=True)
     name = models.CharField(max_length=150)
+    logo = models.ForeignKey('logos.Logo', on_delete=models.SET_NULL, null=True, blank=True)
 
-    def build_image(self, logo=None):
-        self.image.save(self.data_name, ContentFile(create_qrcode_io_stream(self.data, logo)), save=False)
+    def build_image(self):
+        self.image.save(self.data_name, ContentFile(create_qrcode_io_stream(self.data, self.logo)), save=False)
         self._build_save = True
         self.save()
 
