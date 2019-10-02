@@ -45,6 +45,13 @@ class URLQrCode(QrCode):
         return self.url
 
 
+class VideoQrCode(URLQrCode):
+
+    @property
+    def type(self):
+        return 'Video'
+
+
 class FileQrCode(QrCode):
     file = models.FileField(upload_to=get_file_path)
 
