@@ -30,6 +30,6 @@ class FileAdmin(PolymorphicChildModelAdmin):
 @admin.register(QrCode)
 class QrCodeAdmin(PolymorphicParentModelAdmin):
     base_model = QrCode
-    child_models = (URLQrCode, FileQrCode)
+    child_models = (URLQrCode, FileQrCode, VideoQrCode)
     list_filter = (PolymorphicChildModelFilter,)
     list_display = BASE_DISPLAY_LIST
