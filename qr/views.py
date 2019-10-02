@@ -12,14 +12,17 @@ from qr.models import QrCode, FileQrCode, URLQrCode
 from qr.forms import URLQrCodeForm, FileQrCodeForm
 
 
-class ResolveQrCodeView(View):
-    @staticmethod
-    def get(request, pk):
+class ResolveQrCodeView(TemplateView):
+    template_name = "qr/resolve.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         try:
-            qr_code = QrCode.objects.get(id=pk)
+            qr_code = QrCode.objects.get(id=kwargs.get('pk'))
+            context['qrcode'] = qr_code
         except (QrCode.DoesNotExist, ValidationError):
-            raise Http404("Qr Code não existe")
-        return redirect(qr_code.resolve())
+            raise Http404("QR Code não existe")
+        return context
 
 
 class QRCodeListView(ListView):
