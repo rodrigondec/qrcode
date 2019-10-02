@@ -1,13 +1,35 @@
-{% extends 'base_with_nav.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-Listagem
+Resolve
 {% endblock %}
 
 {% block content %}
 <h1 class="text-center">Resolve Qr Code</h1>
 <hr>
-<div class="col-md-6 offset-md-3">
-    {{ qrcode }}
-</div>
+{% if qrcode.type != 'URL' %}
+    <div class="embed-responsive embed-responsive-16by9">
+        {% if qrcode.type == 'Arquivo' %}
+            <object data="{{ qrcode.value }}">
+                <p>
+                    It appears you don't have a PDF plugin for this browser.
+                   No biggie... you can <a href="{{ qrcode.value }}">click here to
+                   download the PDF file.</a>
+                </p>
+            </object>
+        {% elif qrcode.type == 'Video' %}
+            <iframe class="embed-responsive-item" src="{{ qrcode.value }}" allowfullscreen></iframe>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block script %}
+{% if qrcode.type == 'URL' %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+           window.setTimeout(window.location.href = "{{ qrcode.value }}", 5000);
+        });
+    </script>
+{% endif %}
 {% endblock %}
