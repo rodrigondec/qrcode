@@ -3,10 +3,11 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 
 from core.models import BasePolymorphicModel
+from core.mixins import PointModelMixin
 from qr.utils import create_qrcode_io_stream, get_qrcode_img_path,  get_file_path
 
 
-class QrCode(BasePolymorphicModel):
+class QrCode(BasePolymorphicModel, PointModelMixin):
     image = models.ImageField(upload_to=get_qrcode_img_path, null=True, blank=True)
     name = models.CharField(max_length=150)
     logo = models.ForeignKey('logos.Logo', on_delete=models.SET_NULL, null=True, blank=True)
