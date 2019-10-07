@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 
 from qr.models import QrCode, FileQrCode, URLQrCode
 from qr.forms import URLQrCodeForm, FileQrCodeForm
+from metrics.models import Access
 
 
 class ResolveQrCodeView(TemplateView):
@@ -23,6 +24,13 @@ class ResolveQrCodeView(TemplateView):
         except (QrCode.DoesNotExist, ValidationError):
             raise Http404("QR Code não existe")
         return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        Access.from_request(context.get('qrcode'), request)
+
+        return self.render_to_response(context)
 
 
 class QRCodeListView(ListView):
