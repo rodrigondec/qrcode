@@ -1,7 +1,5 @@
-import os
 from io import BytesIO
 
-from django.conf import settings
 from PIL import Image
 import qrcode
 

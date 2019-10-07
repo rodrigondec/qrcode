@@ -1,11 +1,9 @@
 from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
-from django.views import View
-from django.views.generic.base import TemplateView, ContextMixin
+from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.core.exceptions import ValidationError
 
 from qr.models import QrCode, FileQrCode, URLQrCode
