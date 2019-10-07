@@ -3,7 +3,7 @@ from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModel
 
 from qr.models import QrCode, URLQrCode, FileQrCode, VideoQrCode
 
-BASE_DISPLAY_LIST = ['id', 'name', 'image']
+BASE_DISPLAY_LIST = ['id', 'name', 'image', 'latitude', 'longitude']
 
 
 @admin.register(URLQrCode)
