@@ -62,8 +62,8 @@ populate.superuser:
 ################################################################################
 # Local commands
 ################################################################################
-local.pip.install:
-	pip install -r requirements/local.txt
+pip.install:
+	pip install -r requirements-dev.txt
 
 ################################################################################
 # Heroku commands

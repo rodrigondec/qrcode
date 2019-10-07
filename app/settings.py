@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = [
     'polymorphic',
     'django_cleanup',
     'crispy_forms',
+    'django_user_agents',
 ]
 
 LOCAL_APPS = [
@@ -54,6 +55,7 @@ LOCAL_APPS = [
     'logos',
     'qr',
     'users',
+    'metrics',
 ]
 
 INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DEFAULT_APPS
@@ -68,8 +70,19 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
+
+# Cache backend is optional, but recommended to speed up user agent parsing
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+USER_AGENTS_CACHE = None
 
 ROOT_URLCONF = 'app.urls'
 
