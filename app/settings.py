@@ -33,7 +33,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 # GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default='')
 
 ALLOWED_HOSTS = ['*']
-HOST_ADDRESS = config('HOST_ADDRESS', default='http://192.168.0.17:8000')
+HOST_ADDRESS = config('HOST_ADDRESS', default='localhost:8000')
 
 # Application definition
 DEFAULT_APPS = [
