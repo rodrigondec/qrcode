@@ -29,8 +29,8 @@ SECRET_KEY = '$gs%l(0h%t1s_k^y%^+hfju&8i_gkdpeiw*%r2h4s4-3n3g0-g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH', default='')
-GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default='')
+# GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH', default='')
+# GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default='')
 
 ALLOWED_HOSTS = ['*']
 HOST_ADDRESS = config('HOST_ADDRESS', default='http://192.168.0.17:8000')
