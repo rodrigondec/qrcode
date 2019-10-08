@@ -14,7 +14,7 @@ COPY requirements.txt requirements.txt
 COPY requirements-dev.txt requirements-dev.txt
 RUN pip install -r requirements-dev.txt
 
-COPY .start-dev.sh /start-dev.sh
+COPY start-dev.sh /start-dev.sh
 RUN sed -i 's/\r//' /start-dev.sh
 RUN chmod +x /start-dev.sh
 
