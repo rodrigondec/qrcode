@@ -49,6 +49,10 @@ def create_qrcode_io_stream(url, logo):
     return stream.getvalue()
 
 
+def label_generator(size=LABEL_SIZE, chars=string.ascii_letters + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
 def get_qrcode_img_path(instance, *args, **kwargs):
     return f'qrcodes/{instance.id}.png'
 
