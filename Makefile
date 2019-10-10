@@ -1,6 +1,7 @@
 ################################################################################
 # Docker-compose django service commands for dev
 ################################################################################
+current_dir = $(notdir $(shell pwd))
 
 run:
 	docker-compose run django $(cmd)
@@ -36,13 +37,15 @@ logs:
 down:
 	docker-compose down
 
+stop.django:
+	docker stop $(current_dir)_django_1
+
 build:
 	docker-compose build
 
 config.env:
 	cp .env.example .env
 
-current_dir = $(notdir $(shell pwd))
 remove.volumes:
 	docker-compose down
 	docker volume rm $(current_dir)_pg_volume
