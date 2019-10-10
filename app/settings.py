@@ -47,6 +47,7 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'leaflet',
     'polymorphic',
     'django_cleanup',
     'crispy_forms',
