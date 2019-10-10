@@ -4,10 +4,12 @@ from django.core.files.base import ContentFile
 
 from core.models import BasePolymorphicModel
 from core.mixins import PointModelMixin
-from qr.utils import create_qrcode_io_stream, get_qrcode_img_path,  get_file_path
+from qr.utils import create_qrcode_io_stream, label_generator, get_qrcode_img_path,  get_file_path
+from qr.constants import LABEL_SIZE
 
 
 class QrCode(BasePolymorphicModel, PointModelMixin):
+    label = models.CharField(unique=True, max_length=LABEL_SIZE*3, default=label_generator)
     image = models.ImageField(upload_to=get_qrcode_img_path, null=True, blank=True)
     name = models.CharField(max_length=150)
     logo = models.ForeignKey('logos.Logo', on_delete=models.SET_NULL, null=True, blank=True)
@@ -19,11 +21,11 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
 
     @property
     def data(self):
-        return f'{settings.HOST_ADDRESS}/qr/resolve/{self.id}'
+        return f'{settings.HOST_ADDRESS}/ver_qr/{self.label}'
 
     @property
     def data_name(self):
-        return f'{self.id}'
+        return f'{self.label}'
 
     @property
     def type(self):

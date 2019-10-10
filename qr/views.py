@@ -1,3 +1,5 @@
+import traceback
+
 from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
 from django.views.generic.base import TemplateView
@@ -5,6 +7,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 
 from qr.models import QrCode, FileQrCode, URLQrCode
 from qr.forms import URLQrCodeForm, FileQrCodeForm
@@ -17,9 +20,10 @@ class ResolveQrCodeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            qr_code = QrCode.objects.get(id=kwargs.get('pk'))
+            qr_code = QrCode.objects.get(label=kwargs.get('id'))
             context['qrcode'] = qr_code
-        except (QrCode.DoesNotExist, ValidationError):
+        except (QrCode.DoesNotExist, ValidationError) as e:
+            traceback.print_exc()
             raise Http404("QR Code não existe")
         return context
 
