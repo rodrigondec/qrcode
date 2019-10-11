@@ -125,6 +125,22 @@ DATABASES = {
     }
 }
 
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (-5.812757, -35.213127),
+    'DEFAULT_ZOOM': 13,
+    'MIN_ZOOM': 12,
+    'MAX_ZOOM': 17,
+    'RESET_VIEW': False,
+    'PLUGINS': {
+        'extra-markers': {
+            'css': 'css/leaflet.extra-markers.min.css',
+            'js': 'js/leaflet.extra-markers.min.js',
+            'auto-include': True,
+        },
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
