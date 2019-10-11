@@ -40,13 +40,25 @@ Dashboard
 
 <script type="text/javascript">
     function map_init(map, options) {
-        // get point lat and lon
-        var lon = "-35.213127";
-        var lat = "-5.812757";
-        // zoom to point & add it to map
-        map.setView([lat, lon], 12);
+        var redMarker = L.ExtraMarkers.icon({
+            icon: 'fa-map-marker-alt',
+            markerColor: 'red',
+            iconColor: 'blue',
+            shape: 'square',
+            prefix: 'fa'
+        });
+        var customMarker = L.ExtraMarkers.icon({
+            icon: 'fa-spinner',
+            shape: 'circle',
+            markerColor: 'red',
+            prefix: 'fa',
+            extraClasses: 'fa-spin'
+        })
         {% for qrcode in qrcodes %}
-            L.marker({{ qrcode.coordinates }}).addTo(map)
+            L.marker({{ qrcode.coordinates }}, {
+                title: 'test',
+                icon: customMarker
+            }).addTo(map)
         {% endfor %}
 <!--        L.marker([lat, lon]).addTo(map);-->
     }
