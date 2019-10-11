@@ -4,8 +4,8 @@
 {% load leaflet_tags %}
 
 {% block style %}
-{% leaflet_css %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+{% leaflet_css %}
 {% endblock %}
 
 {% block title %}
@@ -47,17 +47,10 @@ Dashboard
             shape: 'square',
             prefix: 'fa'
         });
-        var customMarker = L.ExtraMarkers.icon({
-            icon: 'fa-spinner',
-            shape: 'circle',
-            markerColor: 'red',
-            prefix: 'fa',
-            extraClasses: 'fa-spin'
-        })
         {% for qrcode in qrcodes %}
             L.marker({{ qrcode.coordinates }}, {
                 title: 'test',
-                icon: customMarker
+                icon: redMarker
             }).addTo(map)
         {% endfor %}
 <!--        L.marker([lat, lon]).addTo(map);-->
