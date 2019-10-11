@@ -40,18 +40,15 @@ Dashboard
 
 <script type="text/javascript">
     function map_init(map, options) {
-        var redMarker = L.ExtraMarkers.icon({
-            icon: 'fa-map-marker-alt',
-            markerColor: 'red',
-            iconColor: 'blue',
-            shape: 'square',
-            prefix: 'fa'
+        var bMarker = L.BeautifyIcon.icon({
+            icon: 'map-marker-alt',
+            iconShape: 'marker'
         });
         {% for qrcode in qrcodes %}
             L.marker({{ qrcode.coordinates }}, {
                 title: 'test',
-                icon: redMarker
-            }).addTo(map)
+                icon: bMarker
+            }).addTo(map).bindPopup("popup").bindPopup("This is a BeautifyMarker");
         {% endfor %}
 <!--        L.marker([lat, lon]).addTo(map);-->
     }

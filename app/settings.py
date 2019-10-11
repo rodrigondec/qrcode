@@ -132,9 +132,9 @@ LEAFLET_CONFIG = {
     'MAX_ZOOM': 17,
     'RESET_VIEW': False,
     'PLUGINS': {
-        'extra-markers': {
-            'css': 'css/leaflet.extra-markers.min.css',
-            'js': 'js/leaflet.extra-markers.min.js',
+        'beautify-marker': {
+            'css': 'css/leaflet-beautify-marker-icon.css',
+            'js': 'js/leaflet-beautify-marker-icon.js',
             'auto-include': True,
         },
     }
