@@ -1,14 +1,18 @@
 {% extends 'base_with_nav.html' %}
+{% load static %}
 
 {% load leaflet_tags %}
+
+{% block style %}
+{% leaflet_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+{% endblock %}
 
 {% block title %}
 Dashboard
 {% endblock %}
 
 {% block content %}
-{% leaflet_css %}
-{% leaflet_js %}
 <h1 class="text-center">Dashboard</h1>
 <hr>
 {% for qrcode in qrcodes %}
@@ -32,6 +36,8 @@ Dashboard
 {% endblock %}
 
 {% block script %}
+{% leaflet_js %}
+
 <script type="text/javascript">
     function map_init(map, options) {
         // get point lat and lon
