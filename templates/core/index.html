@@ -42,7 +42,10 @@ Dashboard
     function map_init(map, options) {
         var bMarker = L.BeautifyIcon.icon({
             icon: 'map-marker-alt',
-            iconShape: 'marker'
+            iconShape: 'marker',
+            borderColor: 'red',
+            textColor: 'yellow',
+            backgroundColor: 'blue',
         });
         {% for qrcode in qrcodes %}
             L.marker({{ qrcode.coordinates }}, {
