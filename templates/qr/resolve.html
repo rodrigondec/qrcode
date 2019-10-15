@@ -13,7 +13,7 @@ Resolve
             <a href="{{ qrcode.value }}">Baixar arquivo</a>
         </h4>
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe src="https://docs.google.com/viewer?url={{ qrcode.data }}&embedded=true" frameborder="0"></iframe>
+            <iframe src="https://docs.google.com/viewer?url={{ qrcode.file_url }}&embedded=true" frameborder="0"></iframe>
         </div>
     {% elif qrcode.type == 'Video' %}
         <div class="embed-responsive embed-responsive-16by9">
