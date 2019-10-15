@@ -6,19 +6,22 @@ from PIL import Image
 import qrcode
 
 from logos.models import Logo
-from qr.constants import (LOGO_SIZE, VERSION, ERROR_CORRECTION_LEVEL, BOX_SIZE, BORDER, LABEL_SIZE)
+from qr.constants import (LOGO_PERCENTAGE, VERSION, ERROR_CORRECTION_LEVEL, BOX_SIZE, BORDER, LABEL_SIZE)
 
 
 def _insert_logo_on_img(img, logo):
     img = img.convert('RGB')
     width, height = img.size
+    assert width == height
 
     assert isinstance(logo, Logo)
     logo_img = Image.open(logo.image)
 
+    logo_size = width * LOGO_PERCENTAGE
+
     # Calculate xmin, ymin, xmax, ymax to put the logo
-    xmin = ymin = int((width / 2) - (LOGO_SIZE / 2))
-    xmax = ymax = int((width / 2) + (LOGO_SIZE / 2))
+    xmin = ymin = int((width / 2) - (logo_size / 2))
+    xmax = ymax = int((width / 2) + (logo_size / 2))
 
     logo_img = logo_img.resize((xmax - xmin, ymax - ymin))
 
