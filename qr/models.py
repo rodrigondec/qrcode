@@ -15,17 +15,13 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
     logo = models.ForeignKey('logos.Logo', on_delete=models.SET_NULL, null=True, blank=True)
 
     def build_image(self):
-        self.image.save(self.data_name, ContentFile(create_qrcode_io_stream(self.data, self.logo)), save=False)
+        self.image.save(None, ContentFile(create_qrcode_io_stream(self.resolve_url, self.logo)), save=False)
         self._build_save = True
         self.save()
 
     @property
-    def data(self):
+    def resolve_url(self):
         return f'{settings.HOST_ADDRESS}/ver_qr/{self.label}'
-
-    @property
-    def data_name(self):
-        return f'{self.label}'
 
     @property
     def type(self):
@@ -57,10 +53,6 @@ class VideoQrCode(URLQrCode):
 
 class FileQrCode(QrCode):
     file = models.FileField(upload_to=get_file_path)
-
-    @property
-    def data_name(self):
-        return self.file.name
 
     @property
     def type(self):
