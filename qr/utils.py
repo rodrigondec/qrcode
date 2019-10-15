@@ -23,7 +23,7 @@ def _insert_logo_on_img(img, logo):
     xmin = ymin = int((width / 2) - (logo_size / 2))
     xmax = ymax = int((width / 2) + (logo_size / 2))
 
-    logo_img = logo_img.resize((xmax - xmin, ymax - ymin))
+    logo_img = logo_img.resize((xmax - xmin, ymax - ymin), Image.ANTIALIAS)
 
     img.paste(logo_img, (xmin, ymin, xmax, ymax))
 
