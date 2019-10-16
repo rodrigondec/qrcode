@@ -37,8 +37,11 @@ logs:
 down:
 	docker-compose down
 
-stop.django:
+django.stop:
 	docker stop $(current_dir)_django_1
+
+django.restart: django.stop up
+
 
 build:
 	docker-compose build
