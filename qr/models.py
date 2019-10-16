@@ -9,6 +9,7 @@ from core.mixins import PointModelMixin
 from qr.utils import create_qrcode_io_stream, label_generator, get_qrcode_img_path,  get_file_path
 from qr.constants import (QR_LABEL_SIZE, LEAFLET_ICON, LEAFLET_SHAPE,
                           LEAFLET_BACKGROUND_COLOR)
+from qr.leaflet import LeafletColorManager
 
 
 class QrCode(BasePolymorphicModel, PointModelMixin):
@@ -36,9 +37,12 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
 
     @property
     def leaflet_options(self):
+        color = LeafletColorManager.pick(self.access.count())
         options = {
             "icon": LEAFLET_ICON,
             "iconShape": LEAFLET_SHAPE,
+            "borderColor": color,
+            "textColor": color,
             "backgroundColor": LEAFLET_BACKGROUND_COLOR,
         }
         return json.dumps(options)
