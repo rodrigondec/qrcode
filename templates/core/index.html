@@ -28,13 +28,8 @@ Dashboard
         </ul>
     </p>
 {% endfor %}
-{% for access in access_list %}
-    <p>
-        {{ access }}
-    </p>
-{% endfor %}
-<div class="col-md-6 offset-md-3">
-    {% leaflet_map "main" callback="map_init" %}
+<div class="col-md-8 offset-md-2">
+    {% leaflet_map "leaflet_map" %}
 </div>
 {% endblock %}
 
@@ -42,9 +37,9 @@ Dashboard
 {% leaflet_js %}
 
 <script type="text/javascript">
-    function map_init(map, options) {
-        var bMarker = L.BeautifyIcon.icon({
-            icon: 'map-marker-alt',
+    window.addEventListener("map:init", function (e) {
+        var detail = e.detail;
+        var map = detail.map
 
         {% for qrcode in qrcodes %}
             L.marker({{ qrcode.coordinates }}, {
@@ -52,7 +47,6 @@ Dashboard
                 icon: L.BeautifyIcon.icon({{ qrcode.leaflet_options|safe }})
             }).addTo(map).bindPopup("popup").bindPopup("Esse QR Code teve "+{{ qrcode.access.count }}+" acessos!");
         {% endfor %}
-<!--        L.marker([lat, lon]).addTo(map);-->
-    }
+    }, false);
 </script>
 {% endblock %}
