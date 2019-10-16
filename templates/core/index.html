@@ -18,6 +18,7 @@ Dashboard
 {% for qrcode in qrcodes %}
     <p>
         {{ qrcode }}
+        {{ qrcode.leaflet_options }}
         {{ qrcode.access.count }}
         <ul>
             {% for access in qrcode.access.all %}
@@ -43,15 +44,11 @@ Dashboard
     function map_init(map, options) {
         var bMarker = L.BeautifyIcon.icon({
             icon: 'map-marker-alt',
-            iconShape: 'marker',
-            borderColor: 'red',
-            textColor: 'yellow',
-            backgroundColor: 'blue',
-        });
+
         {% for qrcode in qrcodes %}
             L.marker({{ qrcode.coordinates }}, {
                 title: {{ qrcode.access.count }},
-                icon: bMarker
+                icon: L.BeautifyIcon.icon({{ qrcode.leaflet_options|safe }})
             }).addTo(map).bindPopup("popup").bindPopup("Esse QR Code teve "+{{ qrcode.access.count }}+" acessos!");
         {% endfor %}
 <!--        L.marker([lat, lon]).addTo(map);-->
