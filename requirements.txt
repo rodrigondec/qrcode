@@ -19,6 +19,7 @@ flake8==3.6.0
 # Qr Code
 qrcode==6.1
 Pillow==6.1.0
+python-intervals==1.10.0
 
 # User Agent
 pyyaml==5.1.2
