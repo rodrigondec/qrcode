@@ -64,4 +64,4 @@ class FileQrCode(QrCode):
 
     @property
     def file_url(self):
-        return f'{settings.HOST_ADDRESS}{self.value}'
+        return self.value

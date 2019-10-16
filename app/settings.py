@@ -174,6 +174,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+
+DROPBOX_OAUTH2_TOKEN = config('DROPBOX_API_TOKEN', default='')
 
 # Cors config
 CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL', default=True)
