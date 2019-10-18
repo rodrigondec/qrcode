@@ -42,10 +42,12 @@ Dashboard
         var map = detail.map
 
         {% for qrcode in qrcodes %}
-            L.marker({{ qrcode.coordinates }}, {
-                title: {{ qrcode.access.count }},
-                icon: L.BeautifyIcon.icon({{ qrcode.leaflet_options|safe }})
-            }).addTo(map).bindPopup("popup").bindPopup("Esse QR Code teve "+{{ qrcode.access.count }}+" acessos!");
+            {% if qrcode.coordinates %}
+                L.marker({{ qrcode.coordinates }}, {
+                    title: {{ qrcode.access.count }},
+                    icon: L.BeautifyIcon.icon({{ qrcode.leaflet_options|safe }})
+                }).addTo(map).bindPopup("popup").bindPopup("Esse QR Code teve "+{{ qrcode.access.count }}+" acessos!");
+            {% endif %}
         {% endfor %}
     }, false);
 </script>
