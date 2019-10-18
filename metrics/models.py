@@ -35,3 +35,12 @@ class Access(BaseModel):
     @property
     def datetime(self):
         return pendulum.instance(self._datetime).in_tz('America/Sao_Paulo')
+
+    @classmethod
+    def get_value_count(cls, attr_name):
+        return cls.objects.values(attr_name).annotate(value=models.Count(attr_name))
+
+    @classmethod
+    def get_formated_value_count(cls, attr_name):
+        data = cls.get_value_count(attr_name)
+        return [[item.get(attr_name), item.get('value')] for item in data]
