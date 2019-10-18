@@ -1,3 +1,4 @@
+import pendulum
 from django.db import models
 
 from core.models import BaseModel
@@ -6,6 +7,8 @@ from metrics.utils import get_client_ip
 
 class Access(BaseModel):
     ip = models.GenericIPAddressField()
+
+    _datetime = models.DateTimeField(default=pendulum.now)
 
     device = models.CharField(max_length=150)
     os = models.CharField(max_length=150)
@@ -28,3 +31,7 @@ class Access(BaseModel):
 
         instance.save()
         return instance
+
+    @property
+    def datetime(self):
+        return pendulum.instance(self._datetime).in_tz('America/Sao_Paulo')
