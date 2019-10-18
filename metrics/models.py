@@ -23,9 +23,9 @@ class Access(BaseModel):
         instance.ip = get_client_ip(request)
 
         user_agent = str(request.user_agent)
-        instance.device = user_agent.split('/')[0]
-        instance.os = user_agent.split('/')[1]
-        instance.browser = user_agent.split('/')[2]
+        instance.device = user_agent.split('/')[0].strip()
+        instance.os = user_agent.split('/')[1].strip()
+        instance.browser = user_agent.split('/')[2].strip()
 
         instance.qrcode = qrcode
 
