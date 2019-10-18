@@ -14,7 +14,7 @@ class Access(BaseModel):
     os = models.CharField(max_length=150)
     browser = models.CharField(max_length=150)
 
-    qrcode = models.ForeignKey('qr.QrCode', on_delete=models.CASCADE)
+    qrcode = models.ForeignKey('qr.QrCode', related_name='access', on_delete=models.CASCADE)
 
     @classmethod
     def from_request(cls, qrcode, request, save=True):
