@@ -15,6 +15,7 @@ class DashboardView(TemplateView):
         context['qrcodes'] = QrCode.objects.all()
         context['access_list'] = Access.objects.all()
 
+        context['timeline'] = Access.get_formated_timeline_count()
         for attr_name in ['os', 'device', 'browser']:
             context[f'{attr_name}_count'] = Access.get_formated_value_count(attr_name)
         return context
