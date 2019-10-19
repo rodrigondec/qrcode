@@ -28,13 +28,48 @@ Dashboard
 <!--        </ul>-->
 <!--    </p>-->
 <!--{% endfor %}-->
-<div class="col-md-8 offset-md-2">
-    {% leaflet_map "leaflet_map" %}
+<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab"
+           href="#timeline" role="tab" aria-controls="home" aria-selected="true">Timeline</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab"
+           href="#pie" role="tab" aria-controls="profile" aria-selected="false">Gráficos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab"
+           href="#map" role="tab" aria-controls="contact" aria-selected="false">Mapa</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="timeline" role="tabpanel" aria-labelledby="home-tab">
+        <div id="line_chart"></div>
+    </div>
+    <div class="tab-pane fade" id="pie" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="os_chart"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="device_chart"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="browser_chart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade col-md-8 offset-md-2" id="map" role="tabpanel" aria-labelledby="contact-tab">
+        <div id="map_chart"></div>
+        {% leaflet_map "leaflet_map" %}
+    </div>
 </div>
+
 {% endblock %}
 
 {% block script %}
 {% leaflet_js %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
     window.addEventListener("map:init", function (e) {
@@ -50,5 +85,78 @@ Dashboard
             {% endif %}
         {% endfor %}
     }, false);
+
+    google.charts.load('current', {packages: ['corechart', 'calendar'], 'language': 'pt-BR'});
+    google.charts.setOnLoadCallback(drawTimelineChart);
+    google.charts.setOnLoadCallback(drawOSChart);
+    google.charts.setOnLoadCallback(drawDeviceChart);
+    google.charts.setOnLoadCallback(drawBrowserChart);
+
+    function drawOSChart() {
+        var data = google.visualization.arrayToDataTable(
+            [['Sistema Operacional', 'Quantidade']].concat({{ os_count|safe }})
+        );
+
+        var options = {
+            title: 'Sistemas Operacionais',
+            height: 300
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('os_chart'));
+
+        chart.draw(data, options);
+    }
+
+    function drawDeviceChart() {
+        var data = google.visualization.arrayToDataTable(
+            [['Dispositivo', 'Quantidade']].concat({{ device_count|safe }})
+        );
+
+        var options = {
+            title: 'Dispositivos',
+            height: 300
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('device_chart'));
+
+        chart.draw(data, options);
+    }
+
+    function drawBrowserChart() {
+        var data = google.visualization.arrayToDataTable(
+            [['Navegador', 'Quantidade']].concat({{ browser_count|safe }})
+        );
+
+        var options = {
+            title: 'Navegadores',
+            height: 300
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('browser_chart'));
+
+        chart.draw(data, options);
+    }
+
+    function drawTimelineChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn({ type: 'date', id: 'Date' });
+        data.addColumn({ type: 'number', id: 'Won/Loss' });
+
+        {% for item in timeline %}
+            data.addRow([
+                new Date({{ item|safe }}[0]['year'], {{ item|safe }}[0]['month'], {{ item|safe }}[0]['day']),
+                {{ item|safe }}[1]
+            ])
+        {% endfor %}
+
+        var options = {
+            title: "Frequência de acessos"
+        };
+
+        var chart = new google.visualization.Calendar(document.getElementById('line_chart'));
+
+        chart.draw(data, options);
+    }
+
 </script>
 {% endblock %}
