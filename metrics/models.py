@@ -38,9 +38,37 @@ class Access(BaseModel):
 
     @classmethod
     def get_value_count(cls, attr_name):
-        return cls.objects.values(attr_name).annotate(value=models.Count(attr_name))
+        return cls.objects\
+            .values(attr_name)\
+            .annotate(models.Count(attr_name))
 
     @classmethod
     def get_formated_value_count(cls, attr_name):
         data = cls.get_value_count(attr_name)
-        return [[item.get(attr_name), item.get('value')] for item in data]
+        return [[item.get(attr_name), item.get(f'{attr_name}__count')] for item in data]
+
+    @classmethod
+    def get_timeline_count(cls):
+
+        return cls.objects\
+            .filter(_datetime__year=pendulum.now().year)\
+            .values(
+                '_datetime__year',
+                '_datetime__month',
+                '_datetime__day')\
+            .annotate(models.Count('_datetime__day'))
+
+    @classmethod
+    def get_formated_timeline_count(cls):
+        data = cls.get_timeline_count()
+        return [
+            [
+                {
+                    'year': item.get('_datetime__year'),
+                    'month': item.get('_datetime__month'),
+                    'day': item.get('_datetime__day'),
+                },
+                item.get('_datetime__day__count')
+            ]
+            for item in data
+        ]
