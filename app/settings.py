@@ -47,6 +47,7 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'leaflet',
     'polymorphic',
     'django_cleanup',
     'crispy_forms',
@@ -123,6 +124,22 @@ DATABASES = {
         'PORT': config('DB_PORT', default=5432),
     }
 }
+
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (-5.812757, -35.213127),
+    'DEFAULT_ZOOM': 13,
+    'MIN_ZOOM': 12,
+    'MAX_ZOOM': 17,
+    'RESET_VIEW': False,
+    'PLUGINS': {
+        'beautify-marker': {
+            'css': 'css/leaflet-beautify-marker-icon.css',
+            'js': 'js/leaflet-beautify-marker-icon.js',
+            'auto-include': True,
+        },
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

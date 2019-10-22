@@ -2,14 +2,18 @@ from django.db import models
 from django.conf import settings
 from django.core.files.base import ContentFile
 
+import json
+
 from core.models import BasePolymorphicModel
 from core.mixins import PointModelMixin
 from qr.utils import create_qrcode_io_stream, label_generator, get_qrcode_img_path,  get_file_path
-from qr.constants import LABEL_SIZE
+from qr.constants import (QR_LABEL_SIZE, LEAFLET_ICON, LEAFLET_SHAPE,
+                          LEAFLET_BACKGROUND_COLOR)
+from qr.leaflet import LeafletColorManager
 
 
 class QrCode(BasePolymorphicModel, PointModelMixin):
-    label = models.CharField(unique=True, max_length=LABEL_SIZE*3, default=label_generator)
+    label = models.CharField(unique=True, max_length=QR_LABEL_SIZE * 3, default=label_generator)
     image = models.ImageField(upload_to=get_qrcode_img_path, null=True, blank=True)
     name = models.CharField(max_length=150)
     logo = models.ForeignKey('logos.Logo', on_delete=models.SET_NULL, null=True, blank=True)
@@ -30,6 +34,22 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
     @property
     def value(self):
         raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
+
+    @property
+    def leaflet_options(self):
+        color = LeafletColorManager.pick(self.access.count())
+        options = {
+            "icon": LEAFLET_ICON,
+            "iconShape": LEAFLET_SHAPE,
+            "borderColor": color,
+            "textColor": color,
+            "backgroundColor": LEAFLET_BACKGROUND_COLOR,
+        }
+        return json.dumps(options)
+
+    @property
+    def leaflet_title(self):
+        return f"Esse QR Code teve { self.access.count() } acessos!"
 
 
 class URLQrCode(QrCode):
