@@ -8,18 +8,7 @@ Dashboard
 {% block content %}
 <h1 class="text-center">Dashboard</h1>
 <hr>
-<!--{% for qrcode in qrcodes %}-->
-<!--    <p>-->
-<!--        {{ qrcode }}-->
-<!--        {{ qrcode.leaflet_options }}-->
-<!--        {{ qrcode.access.count }}-->
-<!--        <ul>-->
-<!--            {% for access in qrcode.access.all %}-->
-<!--                <li>{{ access }}</li>-->
-<!--            {% endfor %}-->
-<!--        </ul>-->
-<!--    </p>-->
-<!--{% endfor %}-->
+
 <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab"
@@ -52,7 +41,6 @@ Dashboard
         </div>
     </div>
     <div class="tab-pane fade col-md-8 offset-md-2" id="map" role="tabpanel" aria-labelledby="contact-tab">
-        <div id="map_chart"></div>
         {% leaflet_map "leaflet_map" %}
     </div>
 </div>
@@ -68,9 +56,9 @@ Dashboard
         {% for qrcode in qrcodes %}
             {% if qrcode.coordinates %}
                 L.marker({{ qrcode.coordinates }}, {
-                    title: {{ qrcode.access.count }},
+                    title: "{{ qrcode.leaflet_title }}",
                     icon: L.BeautifyIcon.icon({{ qrcode.leaflet_options|safe }})
-                }).addTo(map).bindPopup("popup").bindPopup("Esse QR Code teve "+{{ qrcode.access.count }}+" acessos!");
+                }).addTo(map).bindPopup("popup").bindPopup("{{ qrcode.leaflet_title }}");
             {% endif %}
         {% endfor %}
     }, false);

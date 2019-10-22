@@ -47,6 +47,10 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
         }
         return json.dumps(options)
 
+    @property
+    def leaflet_title(self):
+        return f"Esse QR Code teve { self.access.count() } acessos!"
+
 
 class URLQrCode(QrCode):
     url = models.URLField()
