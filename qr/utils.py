@@ -6,7 +6,8 @@ from PIL import Image
 import qrcode
 
 from logos.models import Logo
-from qr.constants import (LOGO_PERCENTAGE, VERSION, ERROR_CORRECTION_LEVEL, BOX_SIZE, BORDER, LABEL_SIZE)
+from qr.constants import (QR_LOGO_PERCENTAGE, QR_VERSION,
+                          QR_ERROR_CORRECTION_LEVEL, QR_BOX_SIZE, QR_BORDER, QR_LABEL_SIZE)
 
 
 def _insert_logo_on_img(img, logo):
@@ -17,7 +18,7 @@ def _insert_logo_on_img(img, logo):
     assert isinstance(logo, Logo)
     logo_img = Image.open(logo.image)
 
-    logo_size = width * LOGO_PERCENTAGE
+    logo_size = width * QR_LOGO_PERCENTAGE
 
     # Calculate xmin, ymin, xmax, ymax to put the logo
     xmin = ymin = int((width / 2) - (logo_size / 2))
@@ -32,10 +33,10 @@ def _insert_logo_on_img(img, logo):
 
 def _create_qrcode_img(url):
     qr = qrcode.QRCode(
-        version=VERSION,
-        error_correction=ERROR_CORRECTION_LEVEL,
-        box_size=BOX_SIZE,
-        border=BORDER,
+        version=QR_VERSION,
+        error_correction=QR_ERROR_CORRECTION_LEVEL,
+        box_size=QR_BOX_SIZE,
+        border=QR_BORDER,
     )
     qr.add_data(url)
     qr.make(fit=True)
@@ -54,7 +55,7 @@ def create_qrcode_io_stream(url, logo):
     return stream.getvalue()
 
 
-def label_generator(size=LABEL_SIZE, chars=string.ascii_letters + string.digits):
+def label_generator(size=QR_LABEL_SIZE, chars=string.ascii_letters + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 
