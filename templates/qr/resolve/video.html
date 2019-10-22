@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Resolve
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Resolve Video Qr Code</h1>
+<hr>
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="{{ qrcode.value }}" allowfullscreen></iframe>
+</div>
+{% endblock %}

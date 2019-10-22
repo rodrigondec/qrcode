@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Resolve
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Resolve Arquivo Qr Code</h1>
+<hr>
+<h4 class="text-center">
+    <a href="{{ qrcode.value }}">Baixar arquivo</a>
+</h4>
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe src="https://docs.google.com/viewer?url={{ qrcode.file_url }}&embedded=true" frameborder="0"></iframe>
+</div>
+{% endblock %}

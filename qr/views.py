@@ -15,13 +15,14 @@ from metrics.models import Access
 
 
 class ResolveQrCodeView(TemplateView):
-    template_name = "qr/resolve.html"
+    template_name = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
             qr_code = QrCode.objects.get(label=kwargs.get('id'))
             context['qrcode'] = qr_code
+            self.template_name = qr_code.resolve_template()
         except (QrCode.DoesNotExist, ValidationError) as e:
             traceback.print_exc()
             raise Http404("QR Code não existe")

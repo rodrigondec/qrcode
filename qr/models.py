@@ -27,13 +27,17 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
     def resolve_url(self):
         return f'{settings.HOST_ADDRESS}/ver_qr/{self.label}'
 
+    @staticmethod
+    def resolve_template():
+        raise NotImplementedError('Não pode ser chamado direto de um QrCode!')
+
     @property
     def type(self):
-        raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
+        raise NotImplementedError('Não pode ser chamado direto de um QrCode!')
 
     @property
     def value(self):
-        raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
+        raise NotImplementedError('Não pode ser chamado direto de um QrCode!')
 
     @property
     def leaflet_options(self):
@@ -63,12 +67,20 @@ class URLQrCode(QrCode):
     def value(self):
         return self.url
 
+    @staticmethod
+    def resolve_template():
+        return 'qr/resolve/url.html'
+
 
 class VideoQrCode(URLQrCode):
 
     @property
     def type(self):
         return 'Video'
+
+    @staticmethod
+    def resolve_template():
+        return 'qr/resolve/video.html'
 
 
 class FileQrCode(QrCode):
@@ -81,6 +93,10 @@ class FileQrCode(QrCode):
     @property
     def value(self):
         return self.file.url
+
+    @staticmethod
+    def resolve_template():
+        return 'qr/resolve/arquivo.html'
 
     @property
     def file_url(self):
