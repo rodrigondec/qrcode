@@ -1,16 +1,14 @@
 import traceback
 
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404
 from django.contrib import messages
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
-from django.shortcuts import render
 from django.core.exceptions import ValidationError
-from django.db.models import Q
 
-from qr.models import QrCode, FileQrCode, URLQrCode
-from qr.forms import URLQrCodeForm, FileQrCodeForm
+from qr.models import QrCode, FileQrCode, URLQrCode, VideoQrCode
+from qr.forms import URLQrCodeForm, FileQrCodeForm, VideoQrCodeForm, CHOICES, FORM_CLASSES
 from metrics.models import Access
 
 
@@ -45,69 +43,70 @@ class QRCodeListView(ListView):
 
 class QRCodeCreateView(CreateView):
     template_name = 'qr/create.html'
+    success_url = '/qr/listar/'
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         context = {
-            'file_form': FileQrCodeForm(),
-            'url_form': URLQrCodeForm()
+            f'{FileQrCode.type()}_form': FileQrCodeForm(),
+            f'{URLQrCode.type()}_form': URLQrCodeForm(),
+            f'{VideoQrCode.type()}_form': VideoQrCodeForm()
         }
-        return render(request, self.template_name, context)
+
+        _type = None
+        if kwargs.get('form'):
+            form = kwargs.get('form')
+            _type = form.data.get('type')
+            context[f'{_type}_form'] = form
+
+        if kwargs.get('request'):
+            request = kwargs.get('request')
+            _type = request.POST.get('type')
+            context[f'{_type}_form'] = FORM_CLASSES.get(f'{_type}')(request.POST, request.FILES)
+
+        context['form'] = context.get(f'{_type}_form')
+
+        return context
 
     def post(self, request, *args, **kwargs):
-        context = {
-            'file_form': FileQrCodeForm(),
-            'url_form': URLQrCodeForm()
-        }
-        if request.POST.get('type'):
-            if request.POST.get('type') == 'url':
-                form = URLQrCodeForm(request.POST)
-                context['url_form'] = form
-            else:
-                form = FileQrCodeForm(request.POST, request.FILES)
-                context['file_form'] = form
+        _type = request.POST.get('type')
+        if _type in [choice[0] for choice in CHOICES]:
+            context = self.get_context_data(request=request)
+
+            form = context.get('form')
             if form.is_valid():
-                form.save()
                 messages.success(request, 'QR Code cadastrado com sucesso!')
-                return HttpResponseRedirect('/qr/listar/')
-            context['form_errors'] = form.errors
-            return render(request, self.template_name, context)
+                return self.form_valid(form)
+            return self.form_invalid(form)
         raise Exception('Não teve um tipo de formulário retornado!')
 
 
 class QRCodeUpdateView(UpdateView):
     model = QrCode
     template_name = 'generic/create_update.html'
+    success_url = '/qr/listar/'
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         qr = self.get_object()
-        context = {}
 
-        if isinstance(qr, FileQrCode):
-            context['form'] = FileQrCodeForm(instance=qr)
-            context['titulo'] = 'Atualizar File QR code'
-        elif isinstance(qr, URLQrCode):
-            context["form"] = URLQrCodeForm(instance=qr)
-            context['titulo'] = 'Atualizar URL QR code'
-        return render(request, self.template_name, context)
+        context = {
+            'titulo': f'Atualizar {qr.type()} QR Code',
+            'form': FORM_CLASSES.get(qr.type())(instance=qr)
+        }
+
+        if kwargs.get('form'):
+            context['form'] = kwargs.get('form')
+
+        if kwargs.get('request'):
+            request = kwargs.get('request')
+            context['form'] = FORM_CLASSES.get(qr.type())(request.POST, request.FILES, instance=qr)
+
+        return context
 
     def post(self, request, *args, **kwargs):
-        qr = self.get_object()
-        context = {}
-        form = None
+        context = self.get_context_data(request=request)
 
-        if isinstance(qr, FileQrCode):
-            form = FileQrCodeForm(request.POST, request.FILES, instance=qr)
-            context['titulo'] = 'Atualizar File QR code'
-        elif isinstance(qr, URLQrCode):
-            form = URLQrCodeForm(request.POST, instance=qr)
-            context['titulo'] = 'Atualizar URL QR code'
-
-        assert isinstance(form, FileQrCodeForm) or isinstance(form, URLQrCodeForm)
-
+        form = context.get('form')
         if form.is_valid():
-            form.save()
             messages.success(request, 'QR Code atualizado com sucesso!')
-            return HttpResponseRedirect('/qr/listar/')
-
-        context['form'] = form
-        return render(request, self.template_name, context)
+            return self.form_valid(form)
+        return self.form_invalid(form)
