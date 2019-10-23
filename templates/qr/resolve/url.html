@@ -13,7 +13,9 @@ Resolve
 {% block script %}
 <script type="text/javascript">
     $(document).ready(function() {
-       window.setTimeout(window.location.href = "{{ qrcode.value }}", 5000);
+       setTimeout(function () {
+           window.location.href = "{{ qrcode.value }}";
+        }, 3000);
     });
 </script>
 {% endblock %}
