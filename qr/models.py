@@ -18,6 +18,9 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
     name = models.CharField(max_length=150)
     logo = models.ForeignKey('logos.Logo', on_delete=models.SET_NULL, null=True, blank=True)
 
+    class Meta:
+        ordering = ('id',)
+
     def build_image(self):
         self.image.save(None, ContentFile(create_qrcode_io_stream(self.resolve_url, self.logo)), save=False)
         self._build_save = True
