@@ -28,26 +28,25 @@ Cadastro
 
     </div>
     <div class="row" id="forms">
-        {% if form_errors %}
-            <div class="col-md-8 offset-md-2 alert alert-danger alert-dismissible fade show" role="alert">
-                {{ form_errors }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        {% endif %}
         <div class="col-md-12 collapse" data-parent="#forms" id="file-form">
             <form method="post" enctype="multipart/form-data" name="file_form">
                 {% csrf_token %}
-                {{ file_form|crispy }}
-                <button name="type" value="file"  type="submit" class="btn btn-success">Cadastrar</button>
+                {{ Arquivo_form|crispy }}
+                <button type="submit" class="btn btn-success">Cadastrar</button>
             </form>
         </div>
         <div class="col-md-12 collapse" data-parent="#forms" id="url-form">
             <form method="post" name="url_form">
                 {% csrf_token %}
-                {{ url_form|crispy }}
-                <button name="type" value="url" type="submit" class="btn btn-success text">Cadastrar</button>
+                {{ URL_form|crispy }}
+                <button type="submit" class="btn btn-success text">Cadastrar</button>
+            </form>
+        </div>
+        <div class="col-md-12 collapse" data-parent="#forms" id="video-form">
+            <form method="post" name="url_form">
+                {% csrf_token %}
+                {{ Video_form|crispy }}
+                <button type="submit" class="btn btn-success text">Cadastrar</button>
             </form>
         </div>
     </div>
