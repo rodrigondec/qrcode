@@ -5,7 +5,16 @@ Logout
 {% endblock %}
 
 {% block content %}
-Você saiu com sucesso!
-<a href="/">Voltar</a>
+<h3 class="text-center">Você saiu com sucesso!</h3>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+       setTimeout(function () {
+           window.location.href = "/";
+        }, 2000); //will call the function after 2 secs.
+    });
+</script>
 {% endblock %}
 
