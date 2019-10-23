@@ -31,8 +31,8 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
     def resolve_template():
         raise NotImplementedError('Não pode ser chamado direto de um QrCode!')
 
-    @property
-    def type(self):
+    @staticmethod
+    def type():
         raise NotImplementedError('Não pode ser chamado direto de um QrCode!')
 
     @property
@@ -59,8 +59,8 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
 class URLQrCode(QrCode):
     url = models.URLField()
 
-    @property
-    def type(self):
+    @staticmethod
+    def type():
         return 'URL'
 
     @property
@@ -74,8 +74,8 @@ class URLQrCode(QrCode):
 
 class VideoQrCode(URLQrCode):
 
-    @property
-    def type(self):
+    @staticmethod
+    def type():
         return 'Video'
 
     @staticmethod
@@ -86,8 +86,8 @@ class VideoQrCode(URLQrCode):
 class FileQrCode(QrCode):
     file = models.FileField(upload_to=get_file_path)
 
-    @property
-    def type(self):
+    @staticmethod
+    def type():
         return 'Arquivo'
 
     @property
