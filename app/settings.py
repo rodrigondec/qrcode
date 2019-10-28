@@ -29,6 +29,9 @@ SECRET_KEY = '$gs%l(0h%t1s_k^y%^+hfju&8i_gkdpeiw*%r2h4s4-3n3g0-g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
+# GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH', default='')
+# GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default='')
+
 ALLOWED_HOSTS = ['*']
 HOST_ADDRESS = config('HOST_ADDRESS', default='localhost:8000')
 
@@ -75,13 +78,13 @@ MIDDLEWARE = [
     'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
-# # Cache backend is optional, but recommended to speed up user agent parsing
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-#         'LOCATION': '127.0.0.1:11211',
-#     }
-# }
+# Cache backend is optional, but recommended to speed up user agent parsing
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 USER_AGENTS_CACHE = None
 
@@ -114,11 +117,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': config('DB_ENGINE', default='django.contrib.gis.db.backends.postgis'),
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'NAME': config('DB_NAME', default='postgres'),
+        'USER': config('DB_USER', default='postgres'),
+        'PASSWORD': config('DB_PASSWORD', default='postgres'),
+        'HOST': config('DB_HOST', default='postgres'),
+        'PORT': config('DB_PORT', default=5432),
     }
 }
 
