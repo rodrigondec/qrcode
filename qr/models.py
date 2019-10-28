@@ -18,6 +18,9 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
     name = models.CharField(max_length=150)
     logo = models.ForeignKey('logos.Logo', on_delete=models.SET_NULL, null=True, blank=True)
 
+    class Meta:
+        ordering = ('id',)
+
     def build_image(self):
         self.image.save(None, ContentFile(create_qrcode_io_stream(self.resolve_url, self.logo)), save=False)
         self._build_save = True
@@ -27,13 +30,17 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
     def resolve_url(self):
         return f'{settings.HOST_ADDRESS}/ver_qr/{self.label}'
 
-    @property
-    def type(self):
-        raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
+    @staticmethod
+    def resolve_template():
+        raise NotImplementedError('Não pode ser chamado direto de um QrCode!')
+
+    @staticmethod
+    def type():
+        raise NotImplementedError('Não pode ser chamado direto de um QrCode!')
 
     @property
     def value(self):
-        raise NotImplementedError('Must be called from a UrlQrCode or FileQrCode instance')
+        raise NotImplementedError('Não pode ser chamado direto de um QrCode!')
 
     @property
     def leaflet_options(self):
@@ -55,32 +62,44 @@ class QrCode(BasePolymorphicModel, PointModelMixin):
 class URLQrCode(QrCode):
     url = models.URLField()
 
-    @property
-    def type(self):
+    @staticmethod
+    def type():
         return 'URL'
 
     @property
     def value(self):
         return self.url
 
+    @staticmethod
+    def resolve_template():
+        return 'qr/resolve/url.html'
+
 
 class VideoQrCode(URLQrCode):
 
-    @property
-    def type(self):
+    @staticmethod
+    def type():
         return 'Video'
+
+    @staticmethod
+    def resolve_template():
+        return 'qr/resolve/video.html'
 
 
 class FileQrCode(QrCode):
     file = models.FileField(upload_to=get_file_path)
 
-    @property
-    def type(self):
+    @staticmethod
+    def type():
         return 'Arquivo'
 
     @property
     def value(self):
         return self.file.url
+
+    @staticmethod
+    def resolve_template():
+        return 'qr/resolve/arquivo.html'
 
     @property
     def file_url(self):

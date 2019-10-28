@@ -27,6 +27,7 @@ Listagem
                 <th>Logo</th>
                 <th>Imagem</th>
                 <th class="col-md-1">Detalhar</th>
+                <th class="col-md-1">Ver QR</th>
             </tr>
             {% for qr in qrcodes %}
                 <tr>
@@ -36,6 +37,7 @@ Listagem
                     <td><a href="/logos/atualizar/{{ qr.logo.id }}">{{ qr.logo.name }}</a></td>
                     <td><a target="_blank" href="{{ qr.image.url }}">{{ qr.image.url }}</a></td>
                     <td><a class="btn btn-info" href="/qr/atualizar/{{ qr.id }}">Detalhar</a></td>
+                    <td><a class="btn btn-primary" href="/ver_qr/{{ qr.label }}">Ver QR</a></td>
                 </tr>
             {% endfor %}
         </table>
