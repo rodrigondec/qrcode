@@ -38,16 +38,28 @@ down:
 	docker-compose down
 
 django.stop:
-	docker stop $(current_dir)_django_1
+	docker stop $(current_dir)_django
 
 django.restart: django.stop up
-
 
 build:
 	docker-compose build
 
+build.prod:
+	docker-compose -f docker-compose.prod.yml build
+
+up.prod:
+	docker-compose -f docker-compose.prod.yml up -d
+
+logs.prod:
+	docker-compose -f docker-compose.prod.yml logs -f
+
+down.prod:
+	docker-compose -f docker-compose.prod.yml down
+
 config.env:
 	cp .env.example .env
+	touch .nginx/error.log
 
 remove.volumes:
 	docker-compose down
