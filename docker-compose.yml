@@ -13,10 +13,8 @@ services:
         env_file: .env
 
     django:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        command: /start-dev.sh
+        build: .
+        command: python manage.py runserver
         depends_on:
             - postgres
         volumes:
