@@ -6,6 +6,7 @@ volumes:
 services:
     postgres:
         image: mdillon/postgis:11
+        container_name: postgres
         volumes:
             - pg_volume:/var/lib/postgresql/data
         ports:
@@ -13,10 +14,9 @@ services:
         env_file: .env
 
     django:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        command: /start-dev.sh
+        build: .
+        container_name: django
+        command: python manage.py runserver
         depends_on:
             - postgres
         volumes:
