@@ -59,6 +59,7 @@ down.prod:
 
 config.env:
 	cp .env.example .env
+	touch .nginx/error.log
 
 remove.volumes:
 	docker-compose down

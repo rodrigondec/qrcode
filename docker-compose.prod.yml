@@ -6,19 +6,33 @@ volumes:
 services:
     postgres:
         image: mdillon/postgis:11
+        container_name: postgres
         volumes:
             - pg_volume:/var/lib/postgresql/data
-        ports:
-            - "5432:5432"
+        expose:
+            - 5432
         env_file: .env
 
     django:
         build:
             context: .
             dockerfile: Dockerfile.prod
+        container_name: django
         command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
         depends_on:
             - postgres
-        ports:
-            - "8000:8000"
+        expose:
+          - 8000
         env_file: .env
+
+    nginx:
+        image: nginx:latest
+        container_name: nginx
+        volumes:
+            - .nginx/nginx.conf:/etc/nginx/nginx.conf
+            - .nginx/error.log:/etc/nginx/error.log
+            - .nginx/cache/:/etc/nginx/cache
+            - /etc/letsencrypt/:/etc/letsencrypt/
+        ports:
+            - 80:80
+            - 443:443
