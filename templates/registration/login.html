@@ -12,7 +12,7 @@ Login
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-success">Entrar</button>
-        <a href="/accounts/resetar_senha/">Esqueci minha senha</a>
+        <a class="btn btn-danger" href="/accounts/resetar_senha/">Esqueci minha senha</a>
     </form>
 </div>
 {% endblock %}
