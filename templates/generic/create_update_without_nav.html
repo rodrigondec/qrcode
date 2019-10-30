@@ -1,0 +1,20 @@
+{% extends 'base_without_nav.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+{{ titulo }}
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">{{ titulo }}</h1>
+<hr>
+
+<div class="col-md-4 offset-md-4">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Enviar</button>
+    </form>
+</div>
+{% endblock %}
