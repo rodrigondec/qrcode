@@ -1,5 +1,13 @@
 from django.contrib import messages
-from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
+from django.contrib.auth.views import LogoutView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
+
+
+class MyLogoutView(LogoutView):
+    next_page = '/'
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, 'Você saiu do sistema!')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class MyPasswordChangeView(PasswordChangeView):
