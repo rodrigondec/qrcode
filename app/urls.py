@@ -17,18 +17,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import urls as auth_urls
 
 from core.urls import urlpatterns as core_urls
 from qr.urls import urlpatterns as qr_urls
 from logos.urls import urlpatterns as logos_urls
+from users.urls import urlpatterns as users_urls
+from qr.views import ResolveQrCodeView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include(auth_urls)),
+    path('', include(core_urls)),
+    path('ver_qr/<id>/', ResolveQrCodeView.as_view()),
+    path('qr/', include(qr_urls)),
+    path('logos/', include(logos_urls)),
+    path('accounts/', include(users_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-urlpatterns += core_urls
-urlpatterns += qr_urls
-urlpatterns += logos_urls

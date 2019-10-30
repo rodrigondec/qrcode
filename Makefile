@@ -38,7 +38,7 @@ down:
 	docker-compose down
 
 django.stop:
-	docker stop $(current_dir)_django
+	docker stop django
 
 django.restart: django.stop up
 
