@@ -1,5 +1,21 @@
 from django.contrib import messages
 from django.contrib.auth.views import LogoutView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+
+
+class PerfilView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'generic/create_update.html'
+    fields = ['username', 'email', 'first_name', 'last_name']
+    success_url = '/logos/listar/'
+    extra_context = {
+        'titulo': 'Meu perfil'
+    }
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
 class MyLogoutView(LogoutView):

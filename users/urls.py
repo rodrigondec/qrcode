@@ -1,10 +1,13 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from users.views import MyLogoutView, MyPasswordChangeView, MyPasswordResetView, MyPasswordResetConfirmView
+from users.views import (PerfilView, MyLogoutView, MyPasswordChangeView,
+                         MyPasswordResetView, MyPasswordResetConfirmView)
 
 
 urlpatterns = [
+    path('perfil/', PerfilView.as_view()),
+
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', MyLogoutView.as_view(), name='logout'),
 
