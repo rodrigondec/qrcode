@@ -3,17 +3,18 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Login
+{{ titulo }}
 {% endblock %}
 
 {% block content %}
+<h1 class="text-center">{{ titulo }}</h1>
+<hr>
+
 <div class="col-md-4 offset-md-4">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-success">Entrar</button>
-        <a class="btn btn-danger" href="/accounts/resetar_senha/">Esqueci minha senha</a>
+        <button type="submit" class="btn btn-success">Enviar</button>
     </form>
 </div>
 {% endblock %}
-

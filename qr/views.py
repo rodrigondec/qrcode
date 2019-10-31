@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 
 from qr.models import QrCode, FileQrCode, URLQrCode, VideoQrCode
@@ -34,14 +35,14 @@ class ResolveQrCodeView(TemplateView):
         return self.render_to_response(context)
 
 
-class QRCodeListView(ListView):
+class QRCodeListView(LoginRequiredMixin, ListView):
     model = QrCode
     template_name = 'qr/list.html'
     context_object_name = "qrcodes"
     paginate_by = 5
 
 
-class QRCodeCreateView(CreateView):
+class QRCodeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'qr/create.html'
     success_url = '/qr/listar/'
 
@@ -80,7 +81,7 @@ class QRCodeCreateView(CreateView):
         raise Exception('Não teve um tipo de formulário retornado!')
 
 
-class QRCodeUpdateView(UpdateView):
+class QRCodeUpdateView(LoginRequiredMixin, UpdateView):
     model = QrCode
     template_name = 'generic/create_update.html'
     success_url = '/qr/listar/'

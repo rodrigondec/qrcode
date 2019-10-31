@@ -3,53 +3,7 @@
 {% load static %}
 
 {% block nav %}
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="qrDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   <i class="fas fa-qrcode"></i> Qr Codes
-                </a>
-                <div class="dropdown-menu" aria-labelledby="qrDropdown">
-                    <a class="dropdown-item" href="/qr/listar/">Lista</a>
-                    <a class="dropdown-item" href="/qr/cadastrar/">Cadastrar</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="logoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <i class="fas fa-sticky-note"></i> Logos
-                </a>
-                <div class="dropdown-menu" aria-labelledby="logoDropdown">
-                    <a class="dropdown-item" href="/logos/listar/">Lista</a>
-                    <a class="dropdown-item" href="/logos/cadastrar/">Cadastrar</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="useraDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user-cog"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="useraDropdown">
-                    <a class="dropdown-item" href="/accounts/perfil/">Perfil</a>
-                    <a class="dropdown-item" href="/accounts/mudar_senha/">mudar senha</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/accounts/logout/">Sair <i class="fas fa-sign-out-alt"></i></a>
-                </div>
-            </li>
-
-            
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link disabled" href="#">Disabled</a>-->
-<!--            </li>-->
-        </ul>
-
-<a class="navbar-brand" align="center" href="/">
-        <?xml version="1.0" encoding="utf-8"?>
+<section class="header-log"><h1 class="logo-prefeitura"><?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 23.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="logo-prefeitura" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    viewBox="0 0 494.7 423.5" style="enable-background:new 0 0 494.7 423.5;" xml:space="preserve">
@@ -327,34 +281,9 @@
   <path class="st54" d="M285.6,66.5c-0.1-0.7-0.4-1.4,0.4-1.5c0.7-0.1,0.4,0.5,0.2,0.8C286.1,66,285.9,66.1,285.6,66.5z"/>
   <path class="st9" d="M270.6,125.4c0-0.9,0-1.6,0-2.9C271.2,123.8,271.3,124.6,270.6,125.4z"/>
 </g>
-</svg>
-    </a>
-
-
-        <ul class="navbar-nav navbar-right">
-<<<<<<< HEAD
-            <li class="nav-item">
-                <a class="nav-link" href="/accounts/logout/"><i class="fas fa-sign-out-alt"></i> Sair</a>
-=======
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user-cog"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="/accounts/perfil/">Perfil</a>
-                    <a class="dropdown-item" href="/accounts/mudar_senha/">mudar senha</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/accounts/logout/">Sair <i class="fas fa-sign-out-alt"></i></a>
-                </div>
->>>>>>> 59581210b0f4e1e30379e111141ba842aa0b5b80
-            </li>
-        </ul>
-<!--        <form class="form-inline my-2 my-lg-0">-->
-<!--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-<!--        </form>-->
-    </div>
-</nav>
+</svg></div>
+</h1>
+</section>
 {% endblock %}
 
 {% block footer %}
