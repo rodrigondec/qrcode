@@ -8,10 +8,14 @@ Project made with Django + PostgreSQL + qrcode
 Install [docker-ce](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/) from each documentation
 
 ### Setting up
-to copy the file `.env.example` to `.env` and create the file `.nginx/error.log` run the following command:
+to copy the file `.env.example` to `.env` and create the file `.nginx/error.log` run the following commands:
 <details><summary>Linux</summary>
 
     make config.env
+    make config.nginx
+or 
+
+    make config.all
 </details>
 
 The next step is to build project image
