@@ -46,6 +46,8 @@ RUN apt-get update -y && \
 
 # copy entrypoint-prod.sh
 COPY entrypoint.sh $APP_HOME
+RUN sed -i 's/\r//' $APP_HOME/entrypoint.sh
+RUN chmod +x $APP_HOME/entrypoint.sh
 
 # copy project
 COPY . $APP_HOME
