@@ -172,20 +172,20 @@ USE_L10N = True
 USE_TZ = True
 
 
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = f'{FORCE_SCRIPT_NAME}/accounts/login/'
+LOGIN_REDIRECT_URL = f'{FORCE_SCRIPT_NAME}/'
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_URL = '/static/'
+STATIC_URL = f'{FORCE_SCRIPT_NAME}/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_FOLDER = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     STATIC_FOLDER,
 ]
 
-MEDIA_URL = '/media/'
+MEDIA_URL = f'{FORCE_SCRIPT_NAME}/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
