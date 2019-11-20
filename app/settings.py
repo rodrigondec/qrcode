@@ -27,10 +27,10 @@ TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = '$gs%l(0h%t1s_k^y%^+hfju&8i_gkdpeiw*%r2h4s4-3n3g0-g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['*']
-HOST_ADDRESS = config('HOST_ADDRESS', default='localhost:8000')
+HOST_ADDRESS = config('HOST_ADDRESS')
 
 # Application definition
 DEFAULT_APPS = [

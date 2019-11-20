@@ -57,6 +57,8 @@ logs.prod:
 down.prod:
 	docker-compose -f docker-compose.prod.yml down
 
+restart.prod: down.prod up.prod
+
 config.env:
 	cp .env.example .env
 
