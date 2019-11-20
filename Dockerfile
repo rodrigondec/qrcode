@@ -23,7 +23,4 @@ COPY entrypoint.sh /entrypoint.sh
 RUN sed -i 's/\r//' /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# copy project
-COPY . /app/
-
 ENTRYPOINT ["/entrypoint.sh"]
