@@ -31,6 +31,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['*']
 HOST_ADDRESS = config('HOST_ADDRESS')
+FORCE_SCRIPT_NAME = config('HOST_SUBSITE')
 
 # Application definition
 DEFAULT_APPS = [
