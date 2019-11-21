@@ -57,9 +57,10 @@ docs/_build/
 # PyBuilder
 target/
 
-\.env
+.env
+.admin.env
 
-\.idea/
+.idea/
 
 media/
 

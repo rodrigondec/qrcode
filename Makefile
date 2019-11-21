@@ -61,6 +61,7 @@ restart.prod: down.prod up.prod
 
 config.env:
 	cp .env.example .env
+	cp .env.example .admin.env
 
 config.nginx.log:
 	touch .nginx/error.log
