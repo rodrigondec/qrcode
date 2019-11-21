@@ -2,6 +2,7 @@ import traceback
 
 from django.http import Http404
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -44,7 +45,7 @@ class QRCodeListView(LoginRequiredMixin, ListView):
 
 class QRCodeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'qr/create.html'
-    success_url = '/qr/listar/'
+    success_url = reverse_lazy('qr_listar')
 
     def get_context_data(self, **kwargs):
         context = {
@@ -84,7 +85,7 @@ class QRCodeCreateView(LoginRequiredMixin, CreateView):
 class QRCodeUpdateView(LoginRequiredMixin, UpdateView):
     model = QrCode
     template_name = 'generic/create_update.html'
-    success_url = '/qr/listar/'
+    success_url = reverse_lazy('qr_listar')
 
     def get_context_data(self, **kwargs):
         qr = self.get_object()

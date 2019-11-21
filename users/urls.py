@@ -6,13 +6,13 @@ from users.views import (PerfilView, MyLogoutView, MyPasswordChangeView,
 
 
 urlpatterns = [
-    path('perfil/', PerfilView.as_view()),
+    path('perfil/', PerfilView.as_view(), name='perfil'),
 
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', MyLogoutView.as_view(), name='logout'),
+    path('login/', auth_views.LoginView.as_view(), name='entrar'),
+    path('logout/', MyLogoutView.as_view(), name='sair'),
 
-    path('mudar_senha/', MyPasswordChangeView.as_view(), name='password_change'),
+    path('mudar_senha/', MyPasswordChangeView.as_view(), name='mudar_senha'),
 
-    path('resetar_senha/', MyPasswordResetView.as_view(), name='password_reset'),
-    path('resetar/<uidb64>/<token>/', MyPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('resetar_senha/', MyPasswordResetView.as_view(), name='resetar_senha'),
+    path('resetar/<uidb64>/<token>/', MyPasswordResetConfirmView.as_view(), name='resetar_senha_confirmar'),
 ]
