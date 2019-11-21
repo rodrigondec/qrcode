@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 HOST_ADDRESS = config('HOST_ADDRESS')
 FORCE_SCRIPT_NAME = config('HOST_SUBSITE')
 
+USE_X_FORWARDED_HOST = True
+
 # Application definition
 DEFAULT_APPS = [
     'django.contrib.admin',
