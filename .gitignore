@@ -64,3 +64,4 @@ target/
 media/
 
 .nginx/cache
+.nginx/nginx.conf
