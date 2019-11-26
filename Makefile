@@ -57,13 +57,19 @@ logs.prod:
 down.prod:
 	docker-compose -f docker-compose.prod.yml down
 
+restart.prod: down.prod up.prod
+
 config.env:
 	cp .env.example .env
+	cp .env.example .admin.env
 
-config.nginx:
+config.nginx.log:
 	touch .nginx/error.log
 
-config.all: config.env config.nginx
+config.nginx.conf:
+	cp .nginx/nginx.conf.example .nginx/nginx.conf
+
+config.all: config.env config.nginx.log config.nginx.conf
 
 remove.volumes:
 	docker-compose down

@@ -19,7 +19,7 @@ Listagem
                 <tr>
                     <td>{{ logo.name }}</td>
                     <td><a target="_blank" href="{{ logo.image.url }}">{{ logo.image.url }}</a></td>
-                    <td><a class="btn btn-info" href="/logos/atualizar/{{ logo.id }}/">Ver</a></td>
+                    <td><a class="btn btn-info" href="{% url 'logos_atualizar' logo.id %}/">Ver</a></td>
                 </tr>
             {% endfor %}
         </table>

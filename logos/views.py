@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,7 +17,7 @@ class LogoCreateView(LoginRequiredMixin, CreateView):
     model = Logo
     template_name = 'generic/create_update.html'
     fields = ['name', 'image']
-    success_url = '/logos/listar/'
+    success_url = reverse_lazy('logos_listar')
     extra_context = {
         'titulo': 'Cadastrar Logo'
     }
@@ -26,7 +27,7 @@ class LogoUpdateView(LoginRequiredMixin, UpdateView):
     model = Logo
     template_name = 'generic/create_update.html'
     fields = ['name', 'image']
-    success_url = '/logos/listar/'
+    success_url = reverse_lazy('logos_listar')
     extra_context = {
         'titulo': 'Atualizar Logo'
     }

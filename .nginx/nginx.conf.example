@@ -16,9 +16,24 @@ http {
     proxy_cache_methods GET;
     proxy_cache_valid 200 1y;
 
-    location / {
-      proxy_pass http://django:8000;
+    location /setur/qrcode/ {
+      # proxy_set_header X-Forwarded-Protocol $scheme;
+      # proxy_set_header X-Real-IP $remote_addr;
+      # proxy_set_header Host $http_host;
+      # proxy_set_header X-Scheme $scheme;
+      # proxy_set_header X-Forwarded-For $remote_addr;
+      # proxy_set_header X-Forwarded-Host localhost;
+      proxy_pass http://django:8000/;
       rewrite ^/django(.*)$ $1 break;
+    }
+
+    location /setur/qrcode/static/ {
+      include /etc/nginx/mime.types;
+      alias /static/;
+    }
+
+    location /setur/qrcode/media/ {
+      alias /media/;
     }
 
     listen 80;
