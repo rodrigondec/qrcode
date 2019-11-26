@@ -19,7 +19,7 @@ class URLQrCodeForm(ModelForm):
 
     class Meta:
         model = URLQrCode
-        fields = ['name', 'url', 'logo']
+        fields = ['name', 'url', 'logo', 'latitude', 'longitude']
 
     def __init__(self, *args, **kwargs):
         super(URLQrCodeForm, self).__init__(*args, **kwargs)
@@ -32,7 +32,7 @@ class VideoQrCodeForm(ModelForm):
 
     class Meta:
         model = VideoQrCode
-        fields = ['name', 'url', 'logo']
+        fields = ['name', 'url', 'logo', 'latitude', 'longitude']
 
     def __init__(self, *args, **kwargs):
         super(VideoQrCodeForm, self).__init__(*args, **kwargs)
@@ -45,7 +45,7 @@ class FileQrCodeForm(ModelForm):
 
     class Meta:
         model = FileQrCode
-        fields = ['name', 'file', 'logo']
+        fields = ['name', 'file', 'logo', 'latitude', 'longitude']
 
     def __init__(self, *args, **kwargs):
         super(FileQrCodeForm, self).__init__(*args, **kwargs)

@@ -26,8 +26,8 @@ Listagem
                     <td><a target="_blank" href="{{ qr.value }}">{{ qr.value }}</a></td>
                     <td><a href="/logos/atualizar/{{ qr.logo.id }}">{{ qr.logo.name }}</a></td>
                     <td><a target="_blank" href="{{ qr.image.url }}">{{ qr.image.url }}</a></td>
-                    <td><a class="btn btn-info" href="/qr/atualizar/{{ qr.id }}">Detalhar</a></td>
-                    <td><a class="btn btn-primary" href="/ver_qr/{{ qr.label }}">Ver QR</a></td>
+                    <td><a class="btn btn-info" href="{% url 'qr_atualizar' qr.id %}">Detalhar</a></td>
+                    <td><a class="btn btn-primary" href="{% url 'ver_qr' qr.label %}">Ver QR</a></td>
                 </tr>
             {% endfor %}
         </table>

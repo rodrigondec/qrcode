@@ -8,11 +8,12 @@ Project made with Django + PostgreSQL + qrcode
 Install [docker-ce](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/) from each documentation
 
 ### Setting up
-to copy the file `.env.example` to `.env` and create the file `.nginx/error.log` run the following commands:
+to copy the file `.env.example` to `.env`, create the file `.nginx/error.log` and copy the file `.nginx/nginx.conf.example` to `.nginx/nginx.conf` run the following commands:
 <details><summary>Linux</summary>
 
     make config.env
-    make config.nginx
+    make config.nginx.log
+    make config.nginx.conf
 or 
 
     make config.all
@@ -47,12 +48,13 @@ This command will start 2 services on your machine:
     make up.prod
 This command will start 3 services on your machine:
 - Django server
+- Django server (admin service)  on [http://0.0.0.0:8000](http://0.0.0.0:8000)
 - PostgreSQL service
 - Nginx service on [http://0.0.0.0](http://0.0.0.0)
 
 >IMPORTANT NOTE! 
 >
->Only the nginx service is binded to your machine ports
+>Only the nginx, and django admin services are binded to your machine ports
 </details>
 
 ## Tests

@@ -28,7 +28,7 @@ from qr.views import ResolveQrCodeView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(core_urls)),
-    path('ver_qr/<id>/', ResolveQrCodeView.as_view()),
+    path('ver_qr/<id>/', ResolveQrCodeView.as_view(), name='ver_qr'),
     path('qr/', include(qr_urls)),
     path('logos/', include(logos_urls)),
     path('accounts/', include(users_urls)),

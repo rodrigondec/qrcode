@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.contrib.auth.views import LogoutView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,7 +10,7 @@ class PerfilView(LoginRequiredMixin, UpdateView):
     model = User
     template_name = 'generic/create_update.html'
     fields = ['username', 'email', 'first_name', 'last_name']
-    success_url = '/logos/listar/'
+    success_url = reverse_lazy('dashboard')
     extra_context = {
         'titulo': 'Meu perfil'
     }
@@ -19,7 +20,7 @@ class PerfilView(LoginRequiredMixin, UpdateView):
 
 
 class MyLogoutView(LogoutView):
-    next_page = '/'
+    next_page = reverse_lazy('dashboard')
 
     def dispatch(self, request, *args, **kwargs):
         messages.success(request, 'Você saiu do sistema!')
@@ -28,7 +29,7 @@ class MyLogoutView(LogoutView):
 
 class MyPasswordChangeView(PasswordChangeView):
     template_name = 'generic/create_update.html'
-    success_url = '/'
+    success_url = reverse_lazy('dashboard')
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(titulo='Mudar senha', **kwargs)
@@ -40,7 +41,7 @@ class MyPasswordChangeView(PasswordChangeView):
 
 class MyPasswordResetView(PasswordResetView):
     template_name = 'generic/create_update_without_nav.html'
-    success_url = '/'
+    success_url = reverse_lazy('dashboard')
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(titulo='Resetar senha', **kwargs)
@@ -57,7 +58,7 @@ class MyPasswordResetView(PasswordResetView):
 
 class MyPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'generic/create_update_without_nav.html'
-    success_url = '/'
+    success_url = reverse_lazy('dashboard')
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(titulo='Resetar senha', **kwargs)

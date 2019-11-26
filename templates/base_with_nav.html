@@ -17,8 +17,8 @@
                    <i class="fas fa-qrcode"></i> Qr Codes
                 </a>
                 <div class="dropdown-menu" aria-labelledby="qrDropdown">
-                    <a class="dropdown-item" href="/qr/listar/">Lista</a>
-                    <a class="dropdown-item" href="/qr/cadastrar/">Cadastrar</a>
+                    <a class="dropdown-item" href="{% url 'qr_listar' %}">Lista</a>
+                    <a class="dropdown-item" href="{% url 'qr_cadastrar' %}">Cadastrar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -26,31 +26,15 @@
                      <i class="fas fa-sticky-note"></i> Logos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="logoDropdown">
-                    <a class="dropdown-item" href="/logos/listar/">Lista</a>
-                    <a class="dropdown-item" href="/logos/cadastrar/">Cadastrar</a>
+                    <a class="dropdown-item" href="{% url 'logos_listar' %}">Lista</a>
+                    <a class="dropdown-item" href="{% url 'logos_cadastrar' %}">Cadastrar</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="useraDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user-cog"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="useraDropdown">
-                    <a class="dropdown-item" href="/accounts/perfil/">Perfil</a>
-                    <a class="dropdown-item" href="/accounts/mudar_senha/">mudar senha</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/accounts/logout/"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                </div>
-            </li>
-
-            
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link disabled" href="#">Disabled</a>-->
-<!--            </li>-->
         </ul>
 
-<a class="navbar-brand" align="center" href="/">
-        <img id="logo-prefeitura" src="{%static 'imgs/logoprefeitura.svg' %}">
-    </a>
+        <a class="navbar-brand" align="center" href="{% url 'dashboard' %}">
+            <img id="logo-prefeitura" src="{%static 'imgs/logoprefeitura.svg' %}">
+        </a>
 
 
         <ul class="navbar-nav navbar-right">
@@ -59,25 +43,13 @@
                     <i class="fas fa-user-cog"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="/accounts/perfil/">Perfil</a>
-                    <a class="dropdown-item" href="/accounts/mudar_senha/">mudar senha</a>
+                    <a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a>
+                    <a class="dropdown-item" href="{% url 'mudar_senha' %}">mudar senha</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/accounts/logout/"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                    <a class="dropdown-item" href="{% url 'sair' %}"><i class="fas fa-sign-out-alt"></i> Sair</a>
                 </div>
             </li>
         </ul>
-<!--        <form class="form-inline my-2 my-lg-0">-->
-<!--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-<!--        </form>-->
     </div>
 </nav>
-{% endblock %}
-
-{% block footer %}
-<!--<nav class="navbar sticky-bottom navbar-light bg-light">-->
-<!--    <p class="navbar-text">-->
-<!--        Código livre (GPL3): <a href="https://github.com/rodrigondec/qrcode/" target="_blank">https://github.com/rodrigondec/qrcode/</a>-->
-<!--    </p>-->
-<!--</nav>-->
 {% endblock %}
